@@ -161,7 +161,6 @@ function appStart() {
   startTimer();
   // addEventListener 안에 들어가는 함수는 암묵적으로 이벤트가 전달됨
   window.addEventListener("keydown", handleKeydown);
-  window.addEventListener("click", handleKeydown);
 }
 
 appStart();
