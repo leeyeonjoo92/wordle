@@ -1,0 +1,36 @@
+header {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #d3d6da;
+  position: relative;
+}
+
+.header-menu,
+.header-icons > div {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+header a {
+  color: #000;
+  font-weight: 900;
+  font-size: 30px;
+  text-decoration: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.header-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-icons div {
+  margin: 0 3px;
+}

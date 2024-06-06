@@ -1,0 +1,36 @@
+footer {
+  font-size: 25px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  margin: 30px 0;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.keyboard-row div {
+  background-color: #d3d6da;
+  border-radius: 5px;
+  padding: 0 15px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyboard-enter {
+  font-size: 15px;
+}
+
+.keyboard-delete img {
+  width: 25px;
+  height: 25px;
+}
