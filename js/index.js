@@ -20,6 +20,51 @@ function appStart() {
     document.body.appendChild(div);
   };
 
+  /*-----------------------------------------
+   *	스스로 코딩
+   * (틀렸을때 흔들기, 맞았을때 커지기-게임종료 느리게 뜨기)
+   *	신입연수원 day4 팀장님 지시 업무 ②
+   */
+  const displayIncorrect = () => {
+    const preRow = document.querySelector(`.row-${attempts - 1}`);
+
+    preRow.animate(
+      // keyframes
+      [
+        { transform: "translateX(0px)" },
+        { transform: "translateX(-3px)" },
+        { transform: "translateX(3px)" },
+      ],
+      {
+        duration: 200,
+        easing: "linear",
+        direction: "alternate",
+      }
+    );
+  };
+
+  const displayCorrect = () => {
+    const currentRow = document.querySelector(`.row-${attempts}`);
+    // console.log(currentRow);
+
+    currentRow.animate(
+      // keyframes
+      [
+        { transform: "scale(1.0)" },
+        { transform: "scale(1.1)" },
+        { transform: "scale(1.0)" },
+        { transform: "scale(1.1)" },
+        { transform: "scale(1.0)" },
+      ],
+      {
+        duration: 800,
+        easing: "ease-in-out",
+        direction: "alternate",
+      }
+    );
+  };
+  /*---------------------------------------*/
+
   const nextLine = () => {
     // 6번째 시도면 다음줄로 안넘어가고 게임끝내기
     // 강의에서 (attempts === 6) 이라고 나오는데
@@ -30,13 +75,17 @@ function appStart() {
     attempts += 1;
     // 글자수 다시 리셋 0
     index = 0;
+    displayIncorrect();
   };
 
   const gameover = () => {
     // 게임을 시작하기 위해서 keydown 이벤트를 등록했으니
     // 게임이 종료되면 keydown 이벤트를 지우면됨
     window.removeEventListener("keydown", handleKeydown);
-    displayGameover();
+    // click 이벤트도 삭제
+    window.removeEventListener("click", handleKeyClick);
+    // setTimeout으로 게임종료 1초 후 뜨게함
+    setTimeout(displayGameover, 1000);
     // timer 변수의 setInterval id를 리셋시켜줌
     // 게임 종료시 타이머 중지
     clearInterval(timer);
@@ -83,10 +132,14 @@ function appStart() {
       keyboard.style.background = 입력한_글자_배경색;
       // data-key 키보드 글씨 무조건 흰색
       keyboard.style.color = "white";
+      /*---------------------------------------*/
     }
 
     // 정답을 맞췄다면 게임끝!
-    if (맞은_갯수 === 5) gameover();
+    if (맞은_갯수 === 5) {
+      gameover();
+      displayCorrect();
+    }
     // 정답이 아니면 다음줄로 넘어가는 함수 실행
     else nextLine();
   };
@@ -144,7 +197,7 @@ function appStart() {
   };
 
   /*-----------------------------------------
-   *	스스로 코딩 (키보드에 정답표시)
+   *	스스로 코딩 (키보드 클릭 가능)
    *	신입연수원 day4 팀장님 지시 업무 ①
    */
   // 키보드 클릭 함수
@@ -175,6 +228,7 @@ function appStart() {
       index++;
     }
   };
+  /*---------------------------------------*/
 
   // keyboard-column 28개를 다 찾아서 한묶음으로 가지고 있다가
   const keyboardColumns = document.querySelectorAll(".keyboard-column");
@@ -207,7 +261,6 @@ function appStart() {
   startTimer();
   // addEventListener 안에 들어가는 함수는 암묵적으로 이벤트가 전달됨
   window.addEventListener("keydown", handleKeydown);
-  // document.addEventListener("click", handleKeyClick);
 }
 
 appStart();
