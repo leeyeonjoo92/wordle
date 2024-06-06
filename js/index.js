@@ -73,12 +73,16 @@ function appStart() {
        *	스스로 코딩 (키보드에 정답표시)
        *	신입연수원 day4 팀장님 지시 업무 ①
        */
-      const keyboardColumn = document.querySelector(
+      // 입력한 글자를 data-key 값으로 가지는 keyboard-column 찾기
+      const keyboard = document.querySelector(
         `.keyboard-column[data-key='${입력한_글자}']`
       );
+      // 입력한 글자의 배경색 가져오기
       const 입력한_글자_배경색 = block.style.background;
-      keyboardColumn.style.background = 입력한_글자_배경색;
-      keyboardColumn.style.color = "white";
+      // 입력한 글자 = data-key 키보드 배경색 바꾸기
+      keyboard.style.background = 입력한_글자_배경색;
+      // data-key 키보드 글씨 무조건 흰색
+      keyboard.style.color = "white";
     }
 
     // 정답을 맞췄다면 게임끝!
@@ -139,6 +143,48 @@ function appStart() {
     }
   };
 
+  /*-----------------------------------------
+   *	스스로 코딩 (키보드에 정답표시)
+   *	신입연수원 day4 팀장님 지시 업무 ①
+   */
+  // 키보드 클릭 함수
+  const handleKeyClick = (event) => {
+    // 현재 클릭한 키보드의 data-key값 가져오기
+    const clickKey = event.target.dataset.key;
+    // console.log(clickKey);
+    // thisBlock이랑 같은 건데 변수명 다르게
+    const currentBlock = document.querySelector(
+      `.board-column[data-index='${attempts}${index}']`
+    );
+
+    // Backspace 클릭하면 handleBackspace 함수 실행
+    // (keydown 이벤트 때 만들어놓음)
+    if (clickKey === "Backspace") handleBackspace();
+    // 인덱스값이 5인순간(5글자가 입력되고 난 뒤 입력하면)
+    else if (index === 5) {
+      // 엔터키를 눌렀으면 정답확인
+      // (keydown 이벤트 때 만들어놓음)
+      if (clickKey === "Enter") handleEnterKey();
+      // 엔터를 클릭한게 아니면
+      // 아무것도 실행되지 않음 (로직 실행 안됨)
+      else return;
+      // 알파벳만 입력되게 (백스페이스랑 엔터를 클릭한게 아니라면)
+    } else if (clickKey !== "Backspace" && clickKey !== "Enter") {
+      // 메인 블록에 텍스트 입력 -> data-key값
+      currentBlock.innerText = clickKey;
+      index++;
+    }
+  };
+
+  // keyboard-column 28개를 다 찾아서 한묶음으로 가지고 있다가
+  const keyboardColumns = document.querySelectorAll(".keyboard-column");
+  //console.log(keyboardColumns);
+  // 각각 keyboardColumn 객체로 받아서 한번씩 로직 실행함
+  keyboardColumns.forEach(function (keyboardColumn) {
+    keyboardColumn.addEventListener("click", handleKeyClick);
+    //console.log(keyboardColumn);
+  });
+
   // 타이머 함수
   const startTimer = () => {
     const 시작_시간 = new Date();
@@ -161,6 +207,7 @@ function appStart() {
   startTimer();
   // addEventListener 안에 들어가는 함수는 암묵적으로 이벤트가 전달됨
   window.addEventListener("keydown", handleKeydown);
+  // document.addEventListener("click", handleKeyClick);
 }
 
 appStart();
