@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wordle</title>
+    <!-- css 파일 -->
     <link
       rel="stylesheet"
       as="style"
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <!-- 헤더 -->
     <header>
       <div class="header-menu"><img src="assets/menu.svg" alt="menu" /></div>
       <a class="header-logo" href="/">Wordle</a>
@@ -23,7 +25,9 @@
       </div>
     </header>
 
+    <!-- 메인 -->
     <main>
+      <div id="timer">00:00</div>
       <div class="board-row row-0">
         <div class="board-column" data-index="00"></div>
         <div class="board-column" data-index="01"></div>
@@ -68,6 +72,7 @@
       </div>
     </main>
 
+    <!-- 푸터 -->
     <footer>
       <div class="keyboard-row">
         <div class="keyboard-column" data-key="Q">Q</div>
@@ -106,5 +111,8 @@
         </div>
       </div>
     </footer>
+
+    <!-- js 파일 -->
+    <script src="js/index.js"></script>
   </body>
 </html>

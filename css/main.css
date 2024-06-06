@@ -5,6 +5,8 @@ main {
   align-items: center;
   gap: 5px;
   margin: 30px 0;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .board-row {
