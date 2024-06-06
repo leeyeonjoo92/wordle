@@ -68,6 +68,17 @@ function appStart() {
 
       // 글씨는 무조건 흰색 (조건없음)
       block.style.color = "white";
+
+      /*-----------------------------------------
+       *	스스로 코딩 (키보드에 정답표시)
+       *	신입연수원 day4 팀장님 지시 업무 ①
+       */
+      const keyboardColumn = document.querySelector(
+        `.keyboard-column[data-key='${입력한_글자}']`
+      );
+      const 입력한_글자_배경색 = block.style.background;
+      keyboardColumn.style.background = 입력한_글자_배경색;
+      keyboardColumn.style.color = "white";
     }
 
     // 정답을 맞췄다면 게임끝!
@@ -150,6 +161,7 @@ function appStart() {
   startTimer();
   // addEventListener 안에 들어가는 함수는 암묵적으로 이벤트가 전달됨
   window.addEventListener("keydown", handleKeydown);
+  window.addEventListener("click", handleKeydown);
 }
 
 appStart();
